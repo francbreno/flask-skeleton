@@ -29,7 +29,7 @@ def create_config(config_name):
         'development': DevConfig,
         'testing': TestingConfig,
         'production': ProdConfig,
-        'default': DevConfig
+        'default': SQLiteConfig
     }
 
     return config[config_name]
