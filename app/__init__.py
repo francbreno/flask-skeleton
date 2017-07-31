@@ -11,7 +11,7 @@ ma = Marshmallow()
 from .services.auth import authenticate, identity
 from .api import create_api_bp
 
-def create_app(config_name):
+def create_app(config_name='default'):
     app = Flask(__name__)
 
     config = create_config(config_name)
