@@ -6,30 +6,39 @@ from app import create_app, db
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.app = create_app()
-        self.client = self.app.test_client
+        self.app = create_app('testing')
+        self.app_context = self.app.app_context()
+        self.app_context.push()
 
-        # Preparar os dados
+        db.create_all()
+
+        self.client = self.app.test_client(use_cookies=True)
 
     def tearDown(self):
         # limpar os dados
-        pass
+        db.session.remove()
+        db.drop_all()
 
-    def test_deve_listar_usuarios(self):
-        # Given
+        self.app_context.pop()
+
+    def test_get_auth_returns_method_not_allowed(self):
+        response = self.client.get('/auth')
+        assert 405 == response.status_code
+
+    def test_post_auth_with_invalid_credentials_returns_bad_request(self):
+        response = self.client.post(
+            '/auth', 
+            data={ 'username':'joao', 'password':'123'},
+            headers={ 'Content-Type': 'application/json'})
+
+        assert 400 == response.status_code
+
+    def test_register_with_valid_data_returns_created(self):
+        response = self.client.post(
+            '/api/users/register',
+            data={ 'username':'maria', 'password':'abc123'},)
         
-        #When
-        response = self.client().get('/api/users')
-        #Then
-        self.assertEquals(200, response.status_code)
-
-        pass
-
-    def test_deve_criar_usuario(self):
-        pass
-
-    def test_dev_obter_usuario_por_id(self):
-        pass
+        assert 201 == response.status_code
 
 if __name__ == '__main__':
     unittest.main()
