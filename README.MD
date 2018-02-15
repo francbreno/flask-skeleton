@@ -1,6 +1,6 @@
 Um boilerplate para criação de aplicações com **Python 3** e **Flask**
 
-## Dependêmcias
+## Dependências
 
 * Flask-JWT 0.3.2
 * flask-marshmallow 0.8.0
