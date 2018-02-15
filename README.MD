@@ -1,14 +1,14 @@
 Preparar aplicação
 ===
 
-## 1. Criar ambiente virtual (venv):
+## 1. Criar ambiente virtual (venv)
 
 ```bash
-python3 -m venv venv
+python -m venv venv
 source venv/bin/activate
 ```
 
-## 2. Atualizar o 'pip':
+## 2. Atualizar o 'pip'
 
 ```bash
 pip install --upgrade pip
@@ -20,15 +20,17 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## 4. Criar repositório de migrations:
+## 4. Criar repositório de migrations
 
 ```bash
 ./run.py db init
 ```
 
-## 5. Criar os script de migrations: (precisa do banco rodando: docker-compose up)
+## 5. Criar os script de migrations
 
 ```bash
+# subir o banco no docker
+docker-compose up
 ./run.py db migrate -m "primeira migration"
 ```
 
