@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from .. import db
+from app import db
 
 class UserModel(db.Model):
     __tablename__ = 'users'
